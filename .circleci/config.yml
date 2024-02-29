@@ -75,7 +75,7 @@ jobs:
       CACHE_AMD64: php-v8.3.0-amd64
       CACHE_ARM64: php-v8.3.0-arm64
       IMAGE_REPO: igorferreir4/php-fpm
-      IMAGE_TAGS: latest,v8.3.0
+      IMAGE_TAGS: v8.3.0
     working_directory: ~/project-files
     steps:
       - checkout:
@@ -104,7 +104,7 @@ jobs:
           name: Export date of build.
           command: |
             mkdir ~/.ssh
-            echo "$SSH_KEY" | base64 --decode > ~/.ssh/id_rsa
+            echo "$SSH_KEY" | base64 --decode >> ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
             ssh-keyscan $SSH_HOST_IGOR_ARM >> ~/.ssh/known_hosts
             ssh $SSH_USER@$SSH_HOST_IGOR_ARM "echo Executado em "$(date -d "-3 hours" +"%d/%m/%G - %Hh:%Mm:%Ss") - php-fpm v8.3.0" >> circleci-data.txt"
@@ -116,19 +116,19 @@ jobs:
 workflows:
   php-v8.3.0:
     jobs:
-      # - build-cache-amd64:
-      #     context: docker-geral
+      - build-cache-amd64:
+          context: docker-geral
 
-      # - build-cache-arm64:
-      #     context: docker-geral
+      - build-cache-arm64:
+          context: docker-geral
 
-      # - build-multi-arch:
-      #     context: docker-geral
-      #     requires:
-      #       - build-cache-amd64
-      #       - build-cache-arm64
+      - build-multi-arch:
+          context: docker-geral
+          requires:
+            - build-cache-amd64
+            - build-cache-arm64
 
       - deploy:
           context: docker-geral
-          # requires:
-          #   - build-multi-arch
+          requires:
+            - build-multi-arch
