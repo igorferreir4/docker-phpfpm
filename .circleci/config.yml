@@ -104,7 +104,8 @@ jobs:
           name: Export date of build.
           command: |
             mkdir ~/.ssh
-            echo "$SSH_KEY" | base64 --decode > ~/.ssh/id_rsa
+            echo "$SSH_KEY" >> ~/.ssh/base64.txt
+            cat ~/.ssh/base64.txt | base64 --decode > ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
             ssh-keyscan $SSH_HOST_IGOR_ARM >> ~/.ssh/known_hosts
             ssh $SSH_USER@$SSH_HOST_IGOR_ARM "echo Executado em "$(date -d "-3 hours" +"%d/%m/%G - %Hh:%Mm:%Ss") - php-fpm v8.3.0" >> circleci-data.txt"
