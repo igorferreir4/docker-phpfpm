@@ -93,7 +93,7 @@ jobs:
                 TAGS="$TAGS -t $IMAGE_REPO:$tag"
               done
               docker buildx build \
-                  --build-arg BUILDKIT_INLINE_CACHE=1 \
+                  --build-arg BUILDKIT_INLINE_CACHE=0 \
                   --cache-from="$CACHE_REPO:$CACHE_AMD64" \
                   --cache-from="$CACHE_REPO:$CACHE_ARM64" \
                   --push --platform=linux/amd64,linux/arm64/v8 $TAGS .
