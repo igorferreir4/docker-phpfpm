@@ -101,7 +101,7 @@ jobs:
       #     fingerprints:
       #       - "SHA256:hLlCCj1OZj3pbBbgrGvfHjdTf20F4IYKyKvyJTMXC/A"
       - run:
-          name: Export date of build
+          name: Export date of build.
           command: |
             mkdir ~/.ssh
             echo "$SSH_KEY" | base64 --decode > ~/.ssh/id_rsa
