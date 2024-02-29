@@ -34,7 +34,7 @@ jobs:
       CACHE_REPO: igorferreir4/buildcaches
       CACHE_TAG: php-8.3.3-amd64
       CACHE_TAG_OLD: php-8.3.3-amd64
-    working_directory: ~/project/8.3.3
+    working_directory: ~/project/src/8.3.3
     steps:
       - checkout:
           path: ~/project
@@ -55,7 +55,7 @@ jobs:
       CACHE_REPO: igorferreir4/buildcaches
       CACHE_TAG: php-8.3.3-arm64
       CACHE_TAG_OLD: php-8.3.3-arm64
-    working_directory: ~/project/8.3.3
+    working_directory: ~/project/src/8.3.3
     steps:
       - checkout:
           path: ~/project
@@ -78,7 +78,7 @@ jobs:
       CACHE_ARM64: php-8.3.3-arm64
       IMAGE_REPO: igorferreir4/php-fpm
       IMAGE_TAGS: 8.3.3,latest
-    working_directory: ~/project/8.3.3
+    working_directory: ~/project/src/8.3.3
     steps:
       - checkout:
           path: ~/project
