@@ -37,7 +37,7 @@ jobs:
     executor: docker-machine
     environment:
       CACHE_REPO: igorferreir4/buildcaches
-      CACHE_TAG: php-v8.3.0-amd64
+      CACHE_TAG: php-v8.3.3-amd64
     working_directory: ~/project-files
     steps:
       - checkout:
@@ -56,7 +56,7 @@ jobs:
     executor: docker-machine
     environment:
       CACHE_REPO: igorferreir4/buildcaches
-      CACHE_TAG: php-v8.3.0-arm64
+      CACHE_TAG: php-v8.3.3-arm64
     working_directory: ~/project-files
     steps:
       - checkout:
@@ -76,10 +76,10 @@ jobs:
     resource_class: large
     environment:
       CACHE_REPO: igorferreir4/buildcaches
-      CACHE_AMD64: php-v8.3.0-amd64
-      CACHE_ARM64: php-v8.3.0-arm64
+      CACHE_AMD64: php-v8.3.3-amd64
+      CACHE_ARM64: php-v8.3.3-arm64
       IMAGE_REPO: igorferreir4/php-fpm
-      IMAGE_TAGS: latest,v8.3.0
+      IMAGE_TAGS: latest,v8.3.3
     working_directory: ~/project-files
     steps:
       - checkout:
@@ -108,14 +108,14 @@ jobs:
           name: Export date of build
           command: |
             ssh-keyscan $SSH_HOST_IGOR_ARM >> ~/.ssh/known_hosts
-            ssh $SSH_USER@$SSH_HOST_IGOR_ARM "echo Executado em "$(date -d "-3 hours" +"%d/%m/%G - %Hh:%Mm:%Ss") - php-fpm v8.3.0" >> circleci-data.txt"
+            ssh $SSH_USER@$SSH_HOST_IGOR_ARM "echo Executado em "$(date -d "-3 hours" +"%d/%m/%G - %Hh:%Mm:%Ss") - php-fpm v8.3.3" >> circleci-data.txt"
       # - run:
       #     name: Deploy to my server
       #     command: |
       #       ssh $SSH_USER@$SSH_HOST_IGOR_ARM "~/50GB/docker/executar-docker-compose-up-d.sh >> ~/circleci.txt 2>&1"
 
 workflows:
-   php-v8.3.0:
+   php-v8.3.3:
     when: 
       or: 
         - << pipeline.parameters.build-and-push >>
