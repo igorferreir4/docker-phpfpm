@@ -103,9 +103,9 @@ jobs:
       - run:
           name: Export date of build
           command: |
-            echo "$SSH_KEY" | base64 --decode > ~/.ssh/key
-            cat ~/.ssh/key
-            ssh -i ~/.ssh/key $SSH_USER@$SSH_HOST_IGOR_ARM "echo Executado em "$(date -d "-3 hours" +"%d/%m/%G - %Hh:%Mm:%Ss") - php-fpm v8.3.0" >> circleci-data.txt"
+            echo "$SSH_KEY" | base64 --decode > ~/.ssh/id_rsa
+            chmod 600 ~/.ssh/id_rsa
+            ssh $SSH_USER@$SSH_HOST_IGOR_ARM "echo Executado em "$(date -d "-3 hours" +"%d/%m/%G - %Hh:%Mm:%Ss") - php-fpm v8.3.0" >> circleci-data.txt"
       # - run:
       #     name: Deploy to my server
       #     command: |
@@ -114,19 +114,19 @@ jobs:
 workflows:
   php-v8.3.0:
     jobs:
-      - build-cache-amd64:
-          context: docker-geral
+      # - build-cache-amd64:
+      #     context: docker-geral
 
-      - build-cache-arm64:
-          context: docker-geral
+      # - build-cache-arm64:
+      #     context: docker-geral
 
-      - build-multi-arch:
-          context: docker-geral
-          requires:
-            - build-cache-amd64
-            - build-cache-arm64
+      # - build-multi-arch:
+      #     context: docker-geral
+      #     requires:
+      #       - build-cache-amd64
+      #       - build-cache-arm64
 
       - deploy:
           context: docker-geral
-          requires:
-            - build-multi-arch
+          # requires:
+          #   - build-multi-arch
