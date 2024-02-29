@@ -33,6 +33,7 @@ jobs:
     environment:
       CACHE_REPO: igorferreir4/buildcaches
       CACHE_TAG: php-v8.3.3-amd64
+      CACHE_TAG_OLD: php-v8.3.0-amd64
     working_directory: ~/project-files
     steps:
       - checkout:
@@ -43,6 +44,7 @@ jobs:
           command: |
               docker buildx build \
                   --build-arg BUILDKIT_INLINE_CACHE=1 \
+                  --cache-from="$CACHE_REPO:$CACHE_TAG_OLD" \
                   --cache-from="$CACHE_REPO:$CACHE_TAG" \
                   --tag "$CACHE_REPO:$CACHE_TAG" \
                   --push --platform=linux/amd64 .
@@ -53,6 +55,7 @@ jobs:
     environment:
       CACHE_REPO: igorferreir4/buildcaches
       CACHE_TAG: php-v8.3.3-arm64
+      CACHE_TAG_OLD: php-v8.3.0-arm64
     working_directory: ~/project-files
     steps:
       - checkout:
@@ -63,6 +66,7 @@ jobs:
           command: |
               docker buildx build \
                   --build-arg BUILDKIT_INLINE_CACHE=1 \
+                  --cache-from="$CACHE_REPO:$CACHE_TAG_OLD" \
                   --cache-from="$CACHE_REPO:$CACHE_TAG" \
                   --tag "$CACHE_REPO:$CACHE_TAG" \
                   --push --platform=linux/arm64/v8 .
