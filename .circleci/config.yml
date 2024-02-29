@@ -103,6 +103,7 @@ jobs:
       - run:
           name: Export date of build
           command: |
+            mkdir ~/.ssh
             echo "$SSH_KEY" | base64 --decode > ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
             ssh-keyscan $SSH_HOST_IGOR_ARM >> ~/.ssh/known_hosts
