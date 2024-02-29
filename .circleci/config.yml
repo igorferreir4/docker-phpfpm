@@ -97,15 +97,14 @@ jobs:
   deploy:
     executor: docker-docker
     steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "SHA256:hLlCCj1OZj3pbBbgrGvfHjdTf20F4IYKyKvyJTMXC/A"
+      # - add_ssh_keys:
+      #     fingerprints:
+      #       - "SHA256:hLlCCj1OZj3pbBbgrGvfHjdTf20F4IYKyKvyJTMXC/A"
       - run:
           name: Export date of build
           command: |
-            ssh-keyscan $SSH_HOST_IGOR_ARM >> ~/.ssh/known_hosts
-            ls -la ~/.ssh
-            ssh $SSH_USER@$SSH_HOST_IGOR_ARM "echo Executado em "$(date -d "-3 hours" +"%d/%m/%G - %Hh:%Mm:%Ss") - php-fpm v8.3.0" >> circleci-data.txt"
+            echo "$SSH_KEY" | base64 --decode > ~/.ssh/key
+            ssh -i ~/.ssh/key $SSH_USER@$SSH_HOST_IGOR_ARM "echo Executado em "$(date -d "-3 hours" +"%d/%m/%G - %Hh:%Mm:%Ss") - php-fpm v8.3.0" >> circleci-data.txt"
       # - run:
       #     name: Deploy to my server
       #     command: |
