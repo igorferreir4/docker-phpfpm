@@ -77,7 +77,7 @@ jobs:
       CACHE_AMD64: php-v8.3.3-amd64n
       CACHE_ARM64: php-v8.3.3-arm64n
       IMAGE_REPO: igorferreir4/php-fpm
-      IMAGE_TAGS: v8.3.3,latest
+      IMAGE_TAGS: v8.3.0
     working_directory: ~/project-files
     steps:
       - checkout:
@@ -109,7 +109,7 @@ jobs:
             echo "$SSH_KEY" | base64 --decode >> ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
             ssh-keyscan $SSH_HOST_IGOR_ARM >> ~/.ssh/known_hosts
-            ssh $SSH_USER@$SSH_HOST_IGOR_ARM "echo Executado em "$(date -d "-3 hours" +"%d/%m/%G - %Hh:%Mm:%Ss") - php-fpm v8.3.3" >> circleci-data.txt"
+            ssh $SSH_USER@$SSH_HOST_IGOR_ARM "echo Executado em "$(date -d "-3 hours" +"%d/%m/%G - %Hh:%Mm:%Ss") - php-fpm v8.3.0" >> circleci-data.txt"
       # - run:
       #     name: Deploy to my server
       #     command: |
