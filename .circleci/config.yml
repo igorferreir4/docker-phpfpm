@@ -49,6 +49,7 @@ jobs:
 
   build-cache-arm64:
     executor: docker-machine
+    resource_class: arm.large
     environment:
       CACHE_REPO: igorferreir4/buildcaches
       CACHE_TAG: php-v8.3.0-arm64
@@ -123,7 +124,7 @@ workflows:
           requires:
             - build-cache-amd64
             - build-cache-arm64
-            
+
       - deploy:
           context: docker-geral
           requires:
